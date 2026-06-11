@@ -1,5 +1,6 @@
 import injestion 
 
+
 def retrieve_memories(query: str, limit: int=5):
     # retrieve memory from vector database with search memory
     # why do we need a limit?
@@ -7,6 +8,19 @@ def retrieve_memories(query: str, limit: int=5):
         {
             "query": query,
             "limit": limit,
+        }
+    )
+    return memories
+
+# retrive for specfic tasks only
+def retrieve_task_memory(task_id: str, query: str):
+    memories = mem_client.search_memory(
+        {
+            "query": query,
+            "filters": {
+                "metadata.type": "task_state"
+                "metadata.task_id": task_id
+            },
         }
     )
     return memories
@@ -48,7 +62,7 @@ def agent_reply(user_message: str) -> str:
     final_prompt = "\n".join(prompt)
     response = call_llm(final_prompt)
 
-    store_user_memory(text = f"User said {user_message}", metadata="{message}"),
+    store_user_memory(text=f"User said: {user_message}", metadata={"type": "message"})
     return response
     
     
