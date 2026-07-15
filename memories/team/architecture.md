@@ -1,0 +1,1 @@
+Campaign features use a service layer.

@@ -1,3 +1,6 @@
+# Add new memories to the vector database
+
+
 def add_to_memory(text: str, metadata: dict):
     payload = {"content": text}
     if metadata:
